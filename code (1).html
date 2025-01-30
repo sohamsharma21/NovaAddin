@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novaaddin - Web3 Professional Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+            overflow-x: hidden;
+        }
+        
+
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav {
+            width: 80%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .logo-container img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .nav-links a {
+            color: #343a40;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #007bff;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #007bff;
+            transform: scaleX(1);
+            transition: transform 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #007bff;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-cta button {
+            margin-left: 10px;
+        }
+
+        /* Main Section */
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-height: 80vh;
+        }
+
+        /* Section Containers */
+        .landing-section,
+        .dashboard,
+        .profile-section,
+        .search-section,
+        .jobs-section {
+            width: 80%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            padding: 30px;
+            background-color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Landing Section */
+        .landing-section {
+            text-align: left;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .landing-section .content-container {
+            flex: 1;
+            padding: 20px;
+            max-width: 600px;
+        }
+        .landing-section video {
+            flex: 1;
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .landing-section h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #343a40;
+        }
+
+        .landing-section p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #6c757d;
+        }
+
+        .landing-section .image-container {
+            flex: 1;
+            padding: 20px;
+            max-width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .landing-section .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            flex-direction: column;
+            align-items: start;
+        }
+
+        .dashboard-header {
+            width: 100%;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .feed-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .post-header .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .post-content {
+            margin-bottom: 10px;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .post-btn {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            color: #6c757d;
+            transition: background-color 0.3s;
+        }
+
+        .post-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Profile Section */
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .skills,
+        .work-history {
+            margin-top: 15px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .skills ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skills ul li {
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        .experience {
+            margin-bottom: 10px;
+        }
+
+        /* Search Section */
+        .search-section {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .search-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .search-section input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-results {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .search-result {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 200px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+        /* Jobs Section */
+        .jobs-section {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .job-listing {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .job-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 300px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .signin-btn,
+        .signup-btn {
+            background-color: transparent;
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        .signup-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .signin-btn:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+        }
+
+        .signup-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .get-started-btn,
+        .apply-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .get-started-btn:hover,
+        .apply-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+
+        /* AI Chatbot */
+        .chat-container {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            max-height: 500px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .chat-container.active {
+            display: flex;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .chat-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+
+        #close-chat {
+            border: none;
+            background: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+
+        .chat-body {
+            padding: 10px;
+            overflow-y: auto;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+            scroll-behavior: smooth;
+        }
+
+        .chat-message {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            background-color: #f0f0f0;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background-color: #d1ecf1;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        #chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        #send-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .chat-toggle {
+            background: #007bff;
+            color: white;
+            border: none;
+            font-size: 1.5em;
+            padding: 15px;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+
+        /* 3D effects*/
+
+        .logo-container {
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+
+        .logo-container:hover {
+            transform: rotateY(15deg);
+        }
+
+        .dashboard .post-card {
+            transform-style: preserve-3d;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dashboard .post-card:hover {
+            transform: translateY(-5px) rotateX(3deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-avatar {
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+
+        .profile-avatar:hover {
+            transform: rotateY(180deg);
+        }
+
+       .mobile-nav {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1001;
+    flex-direction: column;
+}
+.mobile-nav-links {
+    display: none;
+    flex-direction: column;
+    width: 200px; /* Adjust as needed */
+}
+.mobile-nav-links a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+.mobile-nav-links a:hover {
+    background-color: #f0f0f0;
+}
+
+.mobile-nav-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .hamburger-menu{
+        display: block;
+    }
+}
+
+ /* AI Chatbot */
+ .chat-container {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            max-height: 500px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .chat-container.active {
+            display: flex;
+        }
+           /* Responsive adjustments for smaller screens */
+        @media (max-width: 576px) {
+          .chat-container {
+            width: 90%;
+            max-width: 350px;
+            bottom: 20px;
+            right: 10px;
+          }
+          .chat-body {
+              height: 300px;
+         }
+        }
+
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .chat-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+
+        #close-chat {
+            border: none;
+            background: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+
+        .chat-body {
+            padding: 10px;
+            overflow-y: auto;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+            scroll-behavior: smooth;
+        }
+
+        .chat-message {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            background-color: #f0f0f0;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background-color: #d1ecf1;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        #chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        #send-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .chat-toggle {
+            background: #007bff;
+            color: white;
+            border: none;
+            font-size: 1.5em;
+            padding: 15px;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="assets/logo.png" alt="Novaaddin Logo" class="logo">
+                <span>Novaaddin</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" class="active">Home</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#profile">Profile</a>
+                <a href="#search">Search</a>
+                <a href="#jobs">Jobs</a>
+            </div>
+            <div class="nav-cta">
+                <button class="btn signin-btn">Sign In</button>
+                <button class="btn signup-btn">Sign Up</button>
+            </div>
+            <button class="hamburger-menu" id="hamburger-menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+        <div class="mobile-nav" id="mobileNav">
+             <button class="mobile-nav-btn" id="mobileNavBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="mobile-nav-links" id="mobileNavLinks">
+                <a href="#" class="active">Home</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#profile">Profile</a>
+                <a href="#search">Search</a>
+                <a href="#jobs">Jobs</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+         <!-- Landing Section -->
+     <section class="landing-section">
+        <div class="content-container">
+            <h1>The Future of Professional Networking</h1>
+            <p>Novaaddin is the world's largest professional network built on the principles of web3. Connect with
+                professionals, find opportunities, and learn the skills for success.</p>
+            <button class="btn get-started-btn">Get Started</button>
+        </div>
+        <video id="myVideo" controls loop>
+                <source src="assets/network.mp4" type="video/mp4">
+              </video>
+
+    </section>
+        <!-- Dashboard (Simplified) -->
+        <section class="dashboard" id="dashboard" style="display:none">
+            <div class="dashboard-header">
+                <h2>Welcome back, User!</h2>
+                <button class="btn post-btn">Create Post</button>
+                <div class="feed-container">
+                <!-- Example Post Card -->
+                <div class="post-card">
+                    <div class="post-header">
+                        <img src="assets/profile-placeholder.png" alt="Profile Pic" class="profile-pic">
+                        <h3>Alice Smith</h3>
+                    </div>
+                    <p class="post-content">
+                        Looking for web3 developer! #web3jobs #hiring #dev
+                    </p>
+                    <div class="post-actions">
+                        <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+                        <button class="post-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+                        <button class="post-btn"><i class="fa-solid fa-share"></i> Share</button>
+                    </div>
+                </div>
+                <!-- More Post Cards Here -->
+            </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section class="profile-section" id="profile" style="display: none;">
+            <div class="profile-card">
+                <img src="assets/profile-placeholder.png" alt="User Avatar" class="profile-avatar">
+                <h2>User Name</h2>
+                <p>Web3 Developer</p>
+                <p>
+                    <strong>Location:</strong> San Francisco, CA
+                </p>
+                <p>
+                    <strong>Wallet:</strong> 0x123...abc
+                </p>
+                <div class="skills">
+                    <h3>Skills:</h3>
+                    <ul>
+                        <li>Web3</li>
+                        <li>Blockchain</li>
+                        <li>Smart Contracts</li>
+                        <li>React</li>
+                    </ul>
+                </div>
+                <div class="work-history">
+                    <h3>Work History:</h3>
+                    <div class="experience">
+                        <h4>Company A</h4>
+                        <p>Job title</p>
+                        <p>Year to year</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section" id="search" style="display: none;">
+            <h2>Search</h2>
+            <input type="text" placeholder="Search People or Jobs">
+            <div class="search-results">
+                <!-- Placeholder results here -->
+                <div class="search-result">
+                    <img src="assets/profile-placeholder.png" alt="Search Result" class="search-pic">
+                    <h3>Search Result 1</h3>
+                    <p>Description of result </p>
+                </div>
+                <div class="search-result">
+                    <img src="assets/profile_image.png" alt="Search Result" class="search-pic">
+                    <h3>Search Result 2</h3>
+                    <p>Description of result </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jobs Section -->
+        <section class="jobs-section" id="jobs" style="display:none">
+            <h2>Jobs</h2>
+            <div class="job-listing">
+                <div class="job-card">
+                    <h3>Web3 Developer</h3>
+                    <p>Company name</p>
+                    <p>Location</p>
+                    <button class="btn apply-btn">Apply Now</button>
+                </div>
+                <div class="job-card">
+                    <h3>Smart Contract Engineer</h3>
+                    <p>Company name</p>
+                    <p>Location</p>
+                    <button class="btn apply-btn">Apply Now</button>
+                </div>
+            </div>
+        </section>
+
+           <!-- AI Chatbot -->
+           <div class="chat-container">
+            <div class="chat-header">
+                <img src="assets/logo.png" alt="Novaaddin Logo" class="chat-logo">
+                <h3>Novaaddin AI Support</h3>
+                <button id="close-chat"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot-message">Hi there! How can I help you today?</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type your message..." />
+                <button id="send-button"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <button class="chat-toggle"><i class="fa-solid fa-comment-dots"></i></button>
+    </main>
+
+    <footer>
+        <p>© 2024 Novaaddin. All rights reserved.</p>
+    </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const mainSections = document.querySelectorAll('main > section');
+        const chatContainer = document.querySelector('.chat-container');
+        const chatToggle = document.querySelector('.chat-toggle');
+        const closeChatBtn = document.querySelector('#close-chat');
+        const landingSection = document.querySelector('.landing-section');
+        const mobileNav = document.getElementById('mobileNav');
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const mobileNavBtn = document.getElementById('mobileNavBtn');
+        const mobileNavLinks = document.getElementById('mobileNavLinks');
+
+        function showSection(sectionId) {
+            mainSections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.style.display = 'flex';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Show/Hide Landing section based on the current section
+            if (sectionId === 'landing-section' || sectionId === '') {
+                landingSection.style.display = 'flex';
+            }
+            else {
+                landingSection.style.display = 'none';
+            }
+        }
+        // Mobile nav links event listener
+        mobileNavLinks.addEventListener('click', function (e) {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                const targetId = e.target.getAttribute('href').substring(1);
+                showSection(targetId);
+
+                mobileNavLinks.style.display = 'none';
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                showSection(targetId);
+            });
+        });
+
+
+        // Initially show the landing page.
+        showSection('landing-section');
+
+        chatToggle.addEventListener('click', () => {
+            chatContainer.classList.toggle('active');
+        });
+
+        closeChatBtn.addEventListener('click', () => {
+            chatContainer.classList.remove('active');
+        });
+
+        // Hamburger menu functionality
+        hamburgerMenu.addEventListener('click', () => {
+            mobileNav.style.display = (mobileNav.style.display === 'flex') ? 'none' : 'flex';
+            mobileNavLinks.style.display = 'none';
+        });
+
+        //Mobile Navigation Button
+        mobileNavBtn.addEventListener('click', () => {
+            mobileNavLinks.style.display = (mobileNavLinks.style.display === 'flex') ? 'none' : 'flex';
+
+        });
+    });
+
+    function addPost(userName, userPic, postContent) {
+        const dashboard = document.getElementById('dashboard');
+        const feedContainer = dashboard.querySelector('.feed-container');
+
+        const postHTML = `
+        <div class="post-card">
+            <div class="post-header">
+                <img src="${userPic}" alt="Profile Pic" class="profile-pic">
+                <h3>${userName}</h3>
+            </div>
+            <p class="post-content">
+               ${postContent}
+            </p>
+            <div class="post-actions">
+                <button class="post-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+                <button class="post-btn"><i class="fa-solid fa-comment"></i> Comment</button>
+                <button class="post-btn"><i class="fa-solid fa-share"></i> Share</button>
+            </div>
+        </div>
+    `;
+
+        feedContainer.innerHTML += postHTML;
+    }
+        // Example of adding a new post:
+        addPost(
+            "Jane Smith",
+            "assets/profile-placeholder.png",
+            "Learning more about web3 technologies is so exiting"
+        );
+        addPost(
+            "Ram Singh",
+            "assets/profile-placeholder.png",
+            "Looking for a job in web3"
+        );
+
+        const video = document.getElementById('myVideo');
+
+        video.addEventListener('ended', function () {
+        video.play(); // वीडियो को दोबारा प्ले करें
+        });
+    </script>
+    <script src="js/ai.js"></script>
+</body>
+</html>
